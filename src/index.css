@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 5%;
+
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 5%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
+
+    /* Violet Theme */
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 10%;
+
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 262 100% 97%;
+    --accent-foreground: 262 70% 40%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 262 83% 58%;
+
+    --radius: 0.75rem;
+
+    --surface: 0 0% 99%;
+  }
+
+  .dark {
+    --background: 220 15% 10%;
+    --foreground: 0 0% 95%;
+
+    --card: 220 15% 13%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 220 15% 12%;
+    --popover-foreground: 0 0% 95%;
+
+    /* Violet Theme */
+    --primary: 262 83% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 18%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 220 10% 20%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 262 45% 22%;
+    --accent-foreground: 262 100% 92%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 10% 22%;
+    --input: 220 10% 22%;
+    --ring: 262 83% 65%;
+
+    --surface: 220 15% 11%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased transition-colors duration-300;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-semibold tracking-tight;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply w-full max-w-6xl mx-auto px-5 md:px-8;
+  }
+
+  .section-padding {
+    @apply py-10 md:py-14;
+  }
+
+  .card-shadow-hover {
+    @apply transition-all duration-300;
+    box-shadow: 0 0 0 0 transparent;
+  }
+
+  .card-shadow-hover:hover {
+    @apply shadow-xl;
+    transform: translateY(-4px);
+  }
+
+  .btn-hover {
+    @apply transition-all duration-300 hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  /* Violet Glow */
+  .violet-glow {
+    box-shadow: 0 0 40px hsl(262 83% 58% / 0.15);
+  }
+
+  /* Optional: Keep the old class name working */
+  .pink-glow {
+    box-shadow: 0 0 40px hsl(262 83% 58% / 0.15);
+  }
+}
+
+@layer utilities {
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+
+  .fill-forwards {
+    animation-fill-mode: forwards;
+  }
+}
