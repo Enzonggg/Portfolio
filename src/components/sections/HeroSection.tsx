@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Download, FileText } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
@@ -7,11 +7,10 @@ interface HeroSectionProps {
   badge?: string;
   title: string;
   description: string;
-  primaryCta?: { text: string; link: string };
-  secondaryCta?: { text: string; link: string };
+  primaryCta?: { text: string; link: string; download?: boolean; openInNewTab?: boolean };
+  secondaryCta?: { text: string; link: string; download?: boolean; openInNewTab?: boolean };
   variant?: "default" | "compact" | "centered";
   image?: string;
-  showDownloads?: boolean;
 }
 
 const HeroSection = ({
@@ -22,7 +21,6 @@ const HeroSection = ({
   secondaryCta,
   variant = "default",
   image,
-  showDownloads = false,
 }: HeroSectionProps) => {
   const isCompact = variant === "compact";
   const isCentered = variant === "centered";
@@ -84,51 +82,26 @@ const HeroSection = ({
               >
                 {primaryCta && (
                   <Button asChild size="lg" className="h-12 px-8 bg-primary hover:bg-primary/90 text-primary-foreground">
-                    <Link to={primaryCta.link}>
-                      {primaryCta.text}
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Link>
+                    {primaryCta.download || primaryCta.openInNewTab ? (
+                      <a href={primaryCta.link} download={primaryCta.download ? "Aurin-Lorenzo-Resume.html" : undefined} target={primaryCta.openInNewTab ? "_blank" : undefined} rel={primaryCta.openInNewTab ? "noopener noreferrer" : undefined}>
+                        {primaryCta.text}
+                        {primaryCta.download ? <Download className="w-4 h-4 ml-2" /> : <ArrowRight className="w-4 h-4 ml-2" />}
+                      </a>
+                    ) : (
+                      <Link to={primaryCta.link}>
+                        {primaryCta.text}
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Link>
+                    )}
                   </Button>
                 )}
                 {secondaryCta && (
                   <Button asChild variant="outline" size="lg" className="h-12 px-8 border-border hover:bg-secondary">
-                    <Link to={secondaryCta.link}>
-                      {secondaryCta.text}
-                    </Link>
+                    {secondaryCta.download || secondaryCta.openInNewTab ? (
+                      <a href={secondaryCta.link} download={secondaryCta.download ? "Aurin-Lorenzo-Resume.html" : undefined} target={secondaryCta.openInNewTab ? "_blank" : undefined} rel={secondaryCta.openInNewTab ? "noopener noreferrer" : undefined}>{secondaryCta.text}{secondaryCta.download && <Download className="w-4 h-4 ml-2" />}</a>
+                    ) : <Link to={secondaryCta.link}>{secondaryCta.text}</Link>}
                   </Button>
                 )}
-              </motion.div>
-            )}
-
-            {/* Download Links */}
-            {showDownloads && (
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="flex flex-col gap-2 mt-8 pt-6 border-t border-border"
-              >
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">Documents</span>
-                <a 
-                  href="/resume.pdf" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors"
-                >
-                  <FileText className="w-4 h-4 text-primary" />
-                  <span className="font-medium">Resume</span>
-                  <Download className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
-                <a 
-                  href="/cv.pdf" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors"
-                >
-                  <FileText className="w-4 h-4 text-primary" />
-                  <span className="font-medium">Curriculum Vitae</span>
-                  <Download className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
               </motion.div>
             )}
           </div>

@@ -13,6 +13,7 @@ const quickLinks = [
   { name: "About", path: "/about" },
   { name: "Services", path: "/services" },
   { name: "Projects", path: "/projects" },
+  { name: "Testimonials", path: "/testimonials" },
   { name: "Certifications", path: "/certifications" },
   { name: "Contact", path: "/contact" },
 ];
@@ -21,7 +22,7 @@ const socialLinks = [
   { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/aurin-lorenzo-a1b805365/" },
   { name: "GitHub", icon: Github, url: "https://github.com/Enzonggg" },
   { name: "Facebook", icon: Facebook, url: "https://www.facebook.com/lorenzo.aurin.2025" },
-  { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/enzo/" },
+  { name: "Instagram", icon: Instagram, url: "#" },
 ];
 
 const Footer = () => {

@@ -34,15 +34,15 @@ const Index = () => {
         title=" &amp; Empowering Communities"
         description="Building modern, responsive, and user-focused web applications that transform ideas into reliable digital solutions."
         primaryCta={{
-          text: "View Services",
-          link: "/services"
+          text: "View Resume",
+          link: "/lorenzoaurinresume.pdf",
+          openInNewTab: true
         }}
         secondaryCta={{
           text: "Get in Touch",
           link: "/contact"
         }}
         image={karenImage}
-        showDownloads={false}
       />
 
       {/* Tech Stack */}

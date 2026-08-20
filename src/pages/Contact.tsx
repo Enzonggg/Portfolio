@@ -41,6 +41,7 @@ const socialLinks = [{
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -50,12 +51,21 @@ const Contact = () => {
   });
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.inquiryType || !formData.message) {
-      toast.error("Please fill in all required fields");
+    const nextErrors: Record<string, string> = {};
+    if (!formData.firstName.trim()) nextErrors.firstName = "Enter your first name.";
+    if (!formData.lastName.trim()) nextErrors.lastName = "Enter your last name.";
+    if (!/^\S+@\S+\.\S+$/.test(formData.email)) nextErrors.email = "Enter a valid email address.";
+    if (!formData.inquiryType) nextErrors.inquiryType = "Choose an inquiry type.";
+    if (formData.message.trim().length < 15) nextErrors.message = "Please enter at least 15 characters.";
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length) {
+      toast.error("Please review the highlighted fields.");
       return;
     }
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    const subject = encodeURIComponent(`${formData.inquiryType}: message from ${formData.firstName} ${formData.lastName}`);
+    const body = encodeURIComponent(`Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nInquiry: ${formData.inquiryType}\n\n${formData.message}`);
+    window.location.href = `mailto:contact@aurinlorenzo@gmail.com?subject=${subject}&body=${body}`;
     setIsSubmitting(false);
     setIsSubmitted(true);
     toast.success("Message sent successfully!", {
@@ -87,16 +97,16 @@ const Contact = () => {
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-medium mb-2">First Name <span className="text-destructive">*</span></label>
                     <Input id="firstName" value={formData.firstName} onChange={e => setFormData({
-                    ...formData,
-                    firstName: e.target.value
-                  })} placeholder="Enter first name" required className="h-11" />
+                    ...formData, firstName: e.target.value
+                  })} placeholder="Enter first name" aria-invalid={!!errors.firstName} className="h-11" />
+                    {errors.firstName && <p className="mt-1 text-xs text-destructive">{errors.firstName}</p>}
                   </div>
                   <div>
                     <label htmlFor="lastName" className="block text-sm font-medium mb-2">Last Name <span className="text-destructive">*</span></label>
                     <Input id="lastName" value={formData.lastName} onChange={e => setFormData({
-                    ...formData,
-                    lastName: e.target.value
-                  })} placeholder="Enter last name" required className="h-11" />
+                    ...formData, lastName: e.target.value
+                  })} placeholder="Enter last name" aria-invalid={!!errors.lastName} className="h-11" />
+                    {errors.lastName && <p className="mt-1 text-xs text-destructive">{errors.lastName}</p>}
                   </div>
                 </div>
                 <div>
@@ -104,24 +114,27 @@ const Contact = () => {
                   <Input id="email" type="email" value={formData.email} onChange={e => setFormData({
                   ...formData,
                   email: e.target.value
-                })} placeholder="Enter email address" required className="h-11" />
+                })} placeholder="Enter email address" aria-invalid={!!errors.email} className="h-11" />
+                  {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email}</p>}
                 </div>
                 <div>
                   <label htmlFor="inquiryType" className="block text-sm font-medium mb-2">Inquiry Type <span className="text-destructive">*</span></label>
-                  <Select value={formData.inquiryType} onValueChange={value => setFormData({
+                  <Select value={formData.inquiryType} onValueChange={value => { setFormData({
                   ...formData,
                   inquiryType: value
-                })}>
-                    <SelectTrigger className="h-11"><SelectValue placeholder="Select inquiry type" /></SelectTrigger>
+                }); setErrors((current) => ({ ...current, inquiryType: "" })); }}>
+                    <SelectTrigger aria-invalid={!!errors.inquiryType} className="h-11"><SelectValue placeholder="Select inquiry type" /></SelectTrigger>
                     <SelectContent>{inquiryTypes.map(type => <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>)}</SelectContent>
                   </Select>
+                  {errors.inquiryType && <p className="mt-1 text-xs text-destructive">{errors.inquiryType}</p>}
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">Message <span className="text-destructive">*</span></label>
                   <Textarea id="message" value={formData.message} onChange={e => setFormData({
                   ...formData,
                   message: e.target.value
-                })} placeholder="Tell me about your project or inquiry..." required className="min-h-[120px] resize-none" />
+                })} placeholder="Tell me about your project or inquiry..." aria-invalid={!!errors.message} className="min-h-[120px] resize-none" />
+                  {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message}</p>}
                 </div>
                 <Button type="submit" size="lg" className="w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground" disabled={isSubmitting || isSubmitted}>
                   {isSubmitted ? <><CheckCircle className="w-4 h-4 mr-2" />Message Sent</> : isSubmitting ? "Sending..." : <>Send Message<Send className="w-4 h-4 ml-2" /></>}

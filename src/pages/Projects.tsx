@@ -14,54 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem } from "@/lib/animations";
-
-const projects = [
-  {
-    title: "Recipehub",
-    description:
-      "A web application that allows users to create, share, and discover recipes with a focus on community engagement and personalized recommendations.",
-    technologies: ["React", "Node.js", "Express", "MySQL", "Tailwind CSS","DaisyUI"],
-    category: "Web Application",
-    highlights: ["Recipe creation", "Community sharing", "Personalized recommendations"],
-    image: "/images/recipehub-project.png",
-  },
-  {
-    title: "Cake Reservation System",
-    description:
-      "A web application for managing cake orders, inventory, and customer reservations with a user-friendly interface.",
-    technologies: ["PHP", "CSS", "MySQL"],
-    category: "E-commerce",
-    highlights: ["Order management", "Inventory tracking", "Customer reservations"],
-    image: "/images/cake.png",
-  },
-  {
-    title: "Student Clearance and Monitoring System",
-    description:
-      "A web application designed to streamline the student clearance process, track progress, and provide real-time updates for students and administrators.",
-    technologies: ["Angular","PHP", "MySQL"],
-    category: "Web Application",
-    highlights: ["Student clearance tracking", "Real-time updates", "Administrator dashboard"],
-    image: "/images/scams.png",
-  },
-  {
-    title: "Web E-learning System",
-    description:
-      "A web-based e-learning platform that provides interactive courses, quizzes, and progress tracking for students.",
-    technologies: ["React", "TypeScript", "Vite"],
-    category: "E-learning",
-    highlights: ["Interactive courses", "Quizzes and assessments", "Progress tracking"],
-    image: "/images/elearning-project.png",
-  },
-  {
-    title: "Clinic Management System",
-    description:
-      "A comprehensive web-based solution for managing clinic operations, including patient records, appointments, and billing.",
-    technologies: ["Next.js", "Tailwind CSS",],
-    category: "Healthcare",
-    highlights: ["Patient record management", "Appointment scheduling", "Billing and invoicing"],
-    image: "/images/clinic-project.png",
-  }
-];
+import { projects } from "@/data/projects";
 
 const strengths = [
   {
@@ -147,6 +100,7 @@ const Projects = () => (
                     </span>
                   ))}
                 </div>
+                <Button asChild variant="outline" className="mt-6 w-full"><Link to={`/projects/${project.slug}`}>View case study <ArrowUpRight className="w-4 h-4 ml-2" /></Link></Button>
               </div>
             </motion.article>
           ))}
