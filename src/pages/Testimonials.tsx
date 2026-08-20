@@ -19,22 +19,49 @@ const Testimonials = () => {
   const [form, setForm] = useState({ name: "", relationship: "", message: "" });
 
   useEffect(() => {
-    const saved = localStorage.getItem(storageKey);
-    if (saved) setTestimonials([...featured, ...JSON.parse(saved)]);
+    const loadTestimonials = async () => {
+      try {
+        const response = await fetch("/api/testimonials");
+        if (!response.ok) return;
+        const items = (await response.json()) as Testimonial[];
+        setTestimonials([...featured, ...items]);
+      } catch {
+        setTestimonials(featured);
+      }
+    };
+
+    loadTestimonials();
   }, []);
 
-  const submit = (event: FormEvent) => {
+  const submit = async (event: FormEvent) => {
     event.preventDefault();
     if (!form.name.trim() || !form.relationship.trim() || form.message.trim().length < 20) {
       toast.error("Please add your name, relationship, and a recommendation of at least 20 characters.");
       return;
     }
+
     const testimonial = { name: form.name.trim(), relationship: form.relationship.trim(), message: form.message.trim() };
-    const saved = JSON.parse(localStorage.getItem(storageKey) || "[]") as Testimonial[];
-    localStorage.setItem(storageKey, JSON.stringify([testimonial, ...saved]));
-    setTestimonials((current) => [current[0], testimonial, ...current.slice(1)]);
-    setForm({ name: "", relationship: "", message: "" });
-    toast.success("Thank you - your recommendation has been added.");
+
+    try {
+      const response = await fetch("/api/testimonials", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testimonial),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Unable to save recommendation.");
+      }
+
+      setTestimonials((current) => [current[0], testimonial, ...current.slice(1)]);
+      setForm({ name: "", relationship: "", message: "" });
+      toast.success("Thank you - your recommendation has been added.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to save recommendation.");
+    }
   };
 
   return <Layout>
