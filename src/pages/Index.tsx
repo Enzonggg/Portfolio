@@ -9,7 +9,7 @@ import { staggerContainer, staggerItem, fadeUp } from "@/lib/animations";
 import karenImage from "@/assets/aurin.png";
 import { certifications } from "./Certifications";
 
-const techStack = ["React", "Angular", "Node.js", "TypeScript", "Tailwind CSS", "Flutter", "AWS", "Supabase", "Figma", "WordPress"];
+const techStack = ["React", "Angular", "Node.js", "Express.js", "TypeScript", "Tailwind CSS", "Flutter", "AWS", "Supabase", "Figma", "WordPress"];
 const services = [{
   icon: Code,
   title: "Web Development",
@@ -31,8 +31,8 @@ const Index = () => {
   return <Layout>
       <HeroSection
         badge="Full-Stack Developer"
-        title=" &amp; Empowering Communities"
-        description="Building modern, responsive, and user-focused web applications that transform ideas into reliable digital solutions."
+        title="Hi, I'm Lorenzo Aurin"
+        description="I create clean, professional, and user-focused web applications—from polished interfaces to dependable back-end systems."
         primaryCta={{
           text: "View Resume",
           link: "/lorenzoaurinresume.pdf",

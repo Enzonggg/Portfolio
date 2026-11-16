@@ -100,7 +100,7 @@ const Projects = () => (
                     </span>
                   ))}
                 </div>
-                <Button asChild variant="outline" className="mt-6 w-full"><Link to={`/projects/${project.slug}`}>View case study <ArrowUpRight className="w-4 h-4 ml-2" /></Link></Button>
+                <Button asChild variant="outline" className="mt-6 w-full"><Link to={`/projects/${project.slug}`}>View projects <ArrowUpRight className="w-4 h-4 ml-2" /></Link></Button>
               </div>
             </motion.article>
           ))}
