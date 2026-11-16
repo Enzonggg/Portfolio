@@ -8,6 +8,12 @@ const techStack = {
   languages: [{
     name: "JavaScript",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+  },{
+    name: "Python",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+  }, {
+     name: "Java",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
   }, {
     name: "Dart",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg"
@@ -36,6 +42,9 @@ const techStack = {
   }, {
     name: "Node.js",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+     }, {
+    name: "Express.js",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
   }, {
     name: "Angular",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg"
@@ -72,8 +81,8 @@ const techStack = {
     name: "Git",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
   }, {
-    name: "AWS",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
+    name: "Postman",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg"
   }, {
     name: "WordPress",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg"
@@ -187,6 +196,7 @@ const About = () => {
                         <img src={tech.icon} alt={tech.name} className="w-8 h-8 object-contain" onError={e => {
                     e.currentTarget.style.display = 'none';
                   }} />
+                  
                       </div>
                       <span className="text-xs font-medium text-center text-muted-foreground">{tech.name}</span>
                     </motion.div>)}
